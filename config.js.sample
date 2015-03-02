@@ -1,0 +1,5 @@
+var config = {};
+
+config.google_api_key = 'put_key_here';
+
+module.exports = config;
