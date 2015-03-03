@@ -1,0 +1,13 @@
+doctype html
+html
+  head
+    title #{day.name} i Saron
+    link(rel='stylesheet', href='/css/dayview.css')
+  body
+    h1= title
+    h2 #{day.name} i Saron
+    - each event in day.events
+      .eventbox
+        p #{event.starttime} - #{event.endtime}
+          strong  #{event.summary}
+    #saron_logo

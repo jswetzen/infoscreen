@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
     'Oct', 'Nov', 'Dec'];
   var daynames = ['Söndag', 'Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag',
     'Lördag'];
-  var data = {title: "Express"};
+  var data = {};
   var timeMin = encodeURIComponent(Date.today().toISOString()),
       timeMax = encodeURIComponent(Date.today().addWeeks(1).removeMinutes(1).toISOString());
 
@@ -30,7 +30,7 @@ router.get('/', function(req, res, next) {
 
       // Create the coming seven days
       for (var daydiff=0; daydiff <7; daydiff++) {
-        day = new Date().addDays(daydiff);
+        day = Date.today().addDays(daydiff);
         days.push({
           date: day,
           weekday: day.getDay(),
@@ -41,10 +41,14 @@ router.get('/', function(req, res, next) {
 
       // Go through the events
       for (var key in calData.items) {
-        var event = {
+        var start = new Date(calData.items[key].start.dateTime),
+            end = new Date(calData.items[key].end.dateTime),
+            event = {
           summary: calData.items[key].summary,
-          start: new Date(calData.items[key].start.dateTime),
-          end: new Date(calData.items[key].end.dateTime)
+          start: start,
+          end: end,
+          starttime: start.toFormat('HH24:MI'),
+          endtime: end.toFormat('HH24:MI'),
         };
 
         // Put the event in the corresponding day
@@ -65,13 +69,16 @@ router.get('/', function(req, res, next) {
         }
         output += '<p>';
       }
-      res.send(output);
+      //res.send(output);
+
+      data.day = days[0];
+      data.title = 'Idag'.toUpperCase();
+      res.render('dayview', data);
     });
   }).on('error', function(e) {
       console.log("Got error: " + e.message);
   });
 
-  //res.render('index', data);
 });
 
 module.exports = router;
