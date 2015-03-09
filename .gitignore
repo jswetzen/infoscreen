@@ -4,3 +4,12 @@ bin
 
 # Config file
 config.js
+
+# Sass
+scss/.sass-cache
+
+# CodeKit
+config.codekit
+
+# Cache file
+*.cache

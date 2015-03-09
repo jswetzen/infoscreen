@@ -4,10 +4,12 @@ html
     title #{day.name} i Saron
     link(rel='stylesheet', href='/css/dayview.css')
   body
-    h1= title
-    h2 #{day.name} i Saron
-    - each event in day.events
-      .eventbox
-        p #{event.starttime} - #{event.endtime}
-          strong  #{event.summary}
-    #saron_logo
+    #header.border-box.border
+      h1= day.title.toUpperCase()
+      h2 #{day.name} i Saron
+    #events.border-box.border
+      - each event in day.events
+        include ./includes/eventbox-even.jade
+        //-include ./includes/eventbox-proportional.jade
+    #footer.border-box.border
+      #saron-logo
