@@ -1,6 +1,5 @@
 # Node.js igores
 node_modules
-bin
 
 # Config file
 config.js
